@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Norm by Azastorm</title>
+<meta name="description" content="Norm by Azastorm — стритвир под заказ: принт и вышивка, свои дизайны, конструктор одежды.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Inter:wght@400;600;800&family=Montserrat:wght@400;700;900&family=Unbounded:wght@400;700&family=Russo+One&family=Bebas+Neue&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Righteous&family=Bowlby+One&family=Rubik+Mono+One&family=Pacifico&family=Lobster&family=Marck+Script&family=Caveat:wght@400;700&family=Comfortaa:wght@400;700&family=Mrs+Saint+Delafield&display=swap">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="intro" aria-hidden="true">
+  <canvas id="introCanvas"></canvas>
+  <div class="intro-ui">
+    <button id="skipIntro" data-i18n="skip"></button>
+    <button id="snd" title="sound">♪</button>
+  </div>
+</div>
+
+<header id="hdr">
+  <a class="logo" href="#top"><span>Norm</span><small>by Azastorm</small></a>
+  <nav class="nav">
+    <a href="#shop" data-i18n="nav_shop"></a>
+    <a href="#collection" data-i18n="nav_coll"></a>
+    <a href="#builder" data-i18n="nav_build"></a>
+  </nav>
+  <div class="hdr-right">
+    <span class="lang" id="lang"><button data-l="ru">RU</button><button data-l="uz">UZ</button><button data-l="en">EN</button></span>
+    <button class="cartbtn" id="cartBtn" aria-label="cart">🛒 <b id="cartCount">0</b></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <div class="hero-glow a"></div><div class="hero-glow b"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="kicker" data-i18n="hero_kicker"></p>
+      <h1 data-i18n="hero_title"></h1>
+      <p class="lead" data-i18n="hero_lead"></p>
+      <div class="hero-actions">
+        <a class="btn" href="#builder" data-i18n="hero_btn"></a>
+        <a class="btn ghost" href="#shop" data-i18n="hero_btn2"></a>
+      </div>
+      <div class="hero-eye">
+        <div class="eye-card">
+          <img src="/img/eye-pixel.png" alt="Norm — eye study" width="560" height="560" loading="eager" decoding="async">
+          <span class="eye-cap">EYE STUDY / 001</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz card" id="quizBox">
+      <h2 data-i18n="quiz_title"></h2>
+      <div id="quizSteps"></div>
+      <div class="quiz-foot">
+        <button class="btn" id="quizPick" data-i18n="pick_look" disabled></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="look" hidden><div class="wrap">
+  <h2 class="sec" data-i18n="look_title"></h2>
+  <p class="sub" data-i18n="look_sub"></p>
+  <div class="look" id="lookList"></div>
+  <p id="lookEmpty" class="sub" data-i18n="look_empty" hidden></p>
+  <button class="btn ghost" id="quizAgain" data-i18n="again"></button>
+</div></section>
+
+<section class="pad alt" id="shop"><div class="wrap">
+  <h2 class="sec" data-i18n="shop_title"></h2>
+  <p class="sub" data-i18n="shop_sub"></p>
+  <div class="filters" id="filters"></div>
+  <div class="grid-shop" id="shopGrid"></div>
+</div></section>
+
+<section class="pad" id="builder"><div class="wrap">
+  <h2 class="sec" data-i18n="b_title"></h2>
+  <p class="sub" data-i18n="b_sub"></p>
+  <div class="builder">
+    <div class="stage-wrap">
+      <div class="stage3d"><canvas id="stage" width="720" height="900"></canvas></div>
+      <div class="stage-tools">
+        <div class="sides" id="sides"></div>
+        <button class="mini" id="resetView" data-i18n="reset"></button>
+      </div>
+      <p class="hint" data-i18n="rotate_hint"></p>
+    </div>
+
+    <div class="ctl">
+      <div class="blk"><h3 data-i18n="item"></h3><div class="chips" id="chItem"></div></div>
+      <div class="blk"><h3 data-i18n="color"></h3><div class="chips" id="chColor"></div>
+        <label class="cpick"><span data-i18n="custom"></span><input type="color" id="ccol" value="#16213a"></label>
+      </div>
+      <div class="blk"><h3 data-i18n="size"></h3><div class="chips" id="chSize"></div></div>
+
+      <div class="blk">
+        <h3 data-i18n="art"></h3>
+        <div class="addbtns">
+          <button class="mini" data-add="text" data-i18n="add_text"></button>
+          <button class="mini" data-add="image" data-i18n="add_photo"></button>
+          <button class="mini" data-add="link" data-i18n="add_link"></button>
+        </div>
+        <div class="sub-panel" id="spText" hidden>
+          <input type="text" id="txtIn" maxlength="40" placeholder="Norm">
+          <select id="fontSel"></select>
+          <input type="color" id="tcolor" value="#f4f3ef">
+          <button class="mini" id="applyText" data-i18n="add_text"></button>
+        </div>
+        <div class="sub-panel" id="spPhoto" hidden>
+          <input type="file" id="photoIn" accept="image/*">
+        </div>
+        <div class="sub-panel" id="spLink" hidden>
+          <input type="url" id="linkIn" maxlength="300" placeholder="https://…">
+          <textarea id="descIn" maxlength="600" rows="2"></textarea>
+          <button class="mini" id="linkBtn" data-i18n="link_btn"></button>
+          <p class="note" id="linkMsg"></p>
+        </div>
+      </div>
+
+      <div class="blk">
+        <h3 data-i18n="layers"></h3>
+        <div class="layerlist" id="layerList"></div>
+        <p class="note" id="noLayers" data-i18n="no_layers"></p>
+        <div class="adjust" id="adjust" hidden>
+          <label><span data-i18n="scale"></span><input type="range" id="sc" min="20" max="220" value="100"></label>
+          <label><span data-i18n="rotate"></span><input type="range" id="rot" min="-180" max="180" value="0"></label>
+          <button class="mini danger" id="delLayer" data-i18n="del"></button>
+        </div>
+      </div>
+
+      <div class="buybar">
+        <div class="pricebox"><span data-i18n="price"></span><b id="price">—</b></div>
+        <button class="btn" id="addToCart" data-i18n="to_order"></button>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="pad alt" id="collection"><div class="wrap">
+  <h2 class="sec" data-i18n="coll_title"></h2>
+  <p class="sub" data-i18n="coll_sub"></p>
+  <div class="coll" id="coll"></div>
+</div></section>
+
+<section class="pad order" id="order"><div class="wrap grid2">
+  <div>
+    <h2 class="sec" data-i18n="o_title"></h2>
+    <p class="sub" data-i18n="o_sub"></p>
+    <form id="form" novalidate>
+      <label><span data-i18n="name"></span><input type="text" id="fName" autocomplete="name" maxlength="80"></label>
+      <label><span data-i18n="phone"></span><input type="tel" id="fPhone" autocomplete="tel" placeholder="+998" maxlength="30"></label>
+      <label><span data-i18n="city"></span><input type="text" id="fCity" maxlength="120"></label>
+      <label><span data-i18n="comment"></span><textarea id="fComment" rows="3" maxlength="600"></textarea></label>
+      <input type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap">
+      <div class="sum"><b data-i18n="total"></b><span id="sumTotal">—</span></div>
+      <button class="btn" id="submitBtn" data-i18n="send"></button>
+      <p class="note" id="formMsg" role="status"></p>
+    </form>
+  </div>
+  <div class="order-side card">
+    <h3 data-i18n="track"></h3>
+    <label><span data-i18n="track_num"></span><input type="text" id="trkNum" placeholder="N-1001" maxlength="20"></label>
+    <label><span data-i18n="phone"></span><input type="tel" id="trkPhone" maxlength="30" placeholder="+998"></label>
+    <button class="mini" id="trkBtn" data-i18n="track"></button>
+    <p class="note" id="trkRes"></p>
+  </div>
+</div></section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><b>Norm</b><small>by Azastorm</small></div>
+      <div class="socials" id="socials"></div>
+      <div class="muted" id="footYear"></div>
+    </div>
+  </div>
+</footer>
+
+<aside id="cart" aria-hidden="true">
+  <div class="cart-head"><h3 data-i18n="cart_title"></h3><button id="cartClose" class="x">✕</button></div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot">
+    <div class="sum"><b data-i18n="total"></b><span id="cartTotal">—</span></div>
+    <button class="btn" id="cartCheckout" data-i18n="checkout"></button>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="card modal-card">
+    <h2 data-i18n="ok_title"></h2>
+    <p data-i18n="ok_sub"></p>
+    <p class="num"><span data-i18n="ok_num"></span> <b id="okNum">—</b></p>
+    <button class="btn" id="okClose" data-i18n="close"></button>
+  </div>
+</div>
+
+<div class="modal" id="pmodal" hidden>
+  <div class="card modal-card wide">
+    <button class="x" id="pmClose">✕</button>
+    <div id="pmBody"></div>
+  </div>
+</div>
+
+<script src="/i18n.js"></script>
+<script src="/intro.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

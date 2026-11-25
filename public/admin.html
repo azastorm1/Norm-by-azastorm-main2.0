@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Админ-панель — Norm</title>
+<link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+<div id="login" class="login" hidden>
+  <form id="loginForm">
+    <h1>Norm <small>админ-панель</small></h1>
+    <label>Пароль<input type="password" id="pw" autocomplete="current-password" required></label>
+    <button class="btn">Войти</button>
+    <p class="err" id="loginErr"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <b>Norm · админ</b>
+    <nav id="tabs">
+      <button data-t="orders">Заказы</button>
+      <button data-t="products">Товары</button>
+      <button data-t="designs">Дизайны</button>
+      <button data-t="settings">Настройки</button>
+    </nav>
+    <span><a href="/" target="_blank">Сайт</a> <button id="logout" class="link">Выйти</button></span>
+  </header>
+
+  <main>
+    <section id="t-orders" hidden>
+      <div class="stats" id="stats"></div>
+      <label class="inline">Показать: <select id="filter"></select></label>
+      <div id="orders"></div>
+    </section>
+
+    <section id="t-products" hidden>
+      <h2>Товары коллекции</h2>
+      <p class="muted">Цена, наличие, размеры и срок изготовления меняются здесь и сразу видны на сайте.</p>
+      <form id="pForm" class="card">
+        <input type="hidden" id="pId">
+        <div class="grid3">
+          <label>Название (рус)<input id="pRu" maxlength="80"></label>
+          <label>Название (uz)<input id="pUz" maxlength="80"></label>
+          <label>Название (en)<input id="pEn" maxlength="80"></label>
+        </div>
+        <div class="grid4">
+          <label>Категория<select id="pCat">
+            <option value="tee">Футболка</option><option value="polo">Поло</option>
+            <option value="hoodie">Худи</option><option value="cap">Кепка</option>
+            <option value="joggers">Джоггеры</option>
+          </select></label>
+          <label>Цена, сум<input type="number" id="pPrice" min="0" value="0"></label>
+          <label>Размеры (через запятую)<input id="pSizes" placeholder="S, M, L, XL"></label>
+          <label>Срок изготовления<input id="pLead" placeholder="3–5 дней"></label>
+        </div>
+        <div class="grid3">
+          <label>Фото<input type="file" id="pFile" accept="image/*"></label>
+          <label class="chk"><input type="checkbox" id="pAvail" checked> В наличии</label>
+          <label>Описание (рус)<input id="pDesc" maxlength="600"></label>
+        </div>
+        <div><button class="btn">Сохранить товар</button> <button type="button" class="btn ghost" id="pCancel" hidden>Отмена</button> <span id="pMsg" class="muted"></span></div>
+      </form>
+      <div class="cards" id="pList"></div>
+    </section>
+
+    <section id="t-designs" hidden>
+      <h2>Дизайн автора</h2>
+      <form id="dForm" class="card">
+        <input type="hidden" id="dId">
+        <div class="grid3">
+          <label>Название (рус)<input id="dRu" maxlength="80" required></label>
+          <label>Название (uz)<input id="dUz" maxlength="80"></label>
+          <label>Название (en)<input id="dEn" maxlength="80"></label>
+        </div>
+        <div class="grid3">
+          <label>Доплата за дизайн, сум<input type="number" id="dExtra" min="0" value="0"></label>
+          <label>Фото (PNG с прозрачным фоном лучше всего)<input type="file" id="dFile" accept="image/*"></label>
+          <label class="chk"><input type="checkbox" id="dPub" checked> Показывать на сайте</label>
+        </div>
+        <div><button class="btn">Сохранить дизайн</button> <button type="button" class="btn ghost" id="dCancel" hidden>Отмена</button> <span id="dMsg" class="muted"></span></div>
+      </form>
+      <div class="cards" id="dList"></div>
+    </section>
+
+    <section id="t-settings" hidden>
+      <h2>Цены конструктора</h2>
+      <div class="card grid4" id="fPrices"></div>
+      <h2>Цвета</h2>
+      <div class="card" id="fColors"></div>
+      <h2>Размеры, контакты, сроки</h2>
+      <div class="card grid3" id="fMisc"></div>
+      <h2>Тексты</h2>
+      <div class="card" id="fTexts"></div>
+      <p><button class="btn" id="saveSettings">Сохранить настройки</button> <span id="sMsg" class="muted"></span></p>
+    </section>
+  </main>
+</div>
+<script src="/admin.js"></script>
+</body>
+</html>
