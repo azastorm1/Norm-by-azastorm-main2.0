@@ -1,0 +1,10 @@
+{
+  "name": "norm-by-azastorm",
+  "version": "1.0.0",
+  "description": "Сайт-магазин Norm by Azastorm с админ-панелью (без внешних зависимостей)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED",
+  "private": true
+}
